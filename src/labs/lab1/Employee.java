@@ -15,7 +15,7 @@ public class Employee {
     public Employee(String name, String surname, double salary) throws EmployeeException {
         this.id = nextId++;
         setName(name);
-        setSurname(name);
+        setSurname(surname);
         setSalary(salary);
     }
 
