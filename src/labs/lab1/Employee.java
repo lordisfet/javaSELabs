@@ -2,8 +2,6 @@ package labs.lab1;
 
 import labs.lab1.Exception.*;
 
-import java.nio.file.FileAlreadyExistsException;
-
 public class Employee {
     private int id;
     private static int nextId = 1;
@@ -12,23 +10,35 @@ public class Employee {
     private String surname;
     private double salary;
 
-    public Employee(String name, String surname){
+    public Employee () {}
+
+    public Employee(String name, String surname, double salary) throws EmployeeException {
         this.id = nextId++;
         setName(name);
         setSurname(name);
+        setSalary(salary);
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws EmployeeException {
+        lengthCheck(name);
         this.name = name;
     }
 
-    public void setSurname(String surname) {
+    public void setSurname(String surname) throws EmployeeException {
+        lengthCheck(surname);
         this.surname = surname;
+    }
+
+    public void setSalary(double salary) throws EmployeeException{
+        this.salary = salary;
+        if (this.salary < 0) {
+            throw new IncorectSalaryException("Salary must be positive value");
+        }
     }
 
     public void lengthCheck(String str) throws EmployeeException {
         if (str.length() > MAX_NAME_LENGTH) {
-            throw new FieldLengthLimitException(str + "Is so long, max legth is  " + MAX_NAME_LENGTH);
+            throw new FieldLengthLimitException('\"' + str + '\"' + " is so long, max length is " + MAX_NAME_LENGTH);
         }
     }
 
